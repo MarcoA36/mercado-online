@@ -5,7 +5,7 @@ FROM node:20-alpine AS deps
 WORKDIR /app
 
 COPY package.json package-lock.json* ./
-RUN npm install --frozen-lockfile || npm install
+RUN npm install --legacy-peer-deps
 
 # =========================
 # 2. Build
@@ -29,7 +29,6 @@ WORKDIR /app
 ENV NODE_ENV=production
 ENV NEXT_TELEMETRY_DISABLED=1
 
-# Usuario no root (buena práctica)
 RUN addgroup -g 1001 -S nodejs \
   && adduser -S nextjs -u 1001
 
